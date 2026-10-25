@@ -36,3 +36,11 @@ def safe_move(src: Path, dest_dir: Path) -> Path:
     target = unique_path(dest_dir / src.name)
     shutil.move(src, target)
     return target
+
+def process(path: Path, settings: Settings, dry_run: bool) -> Path | None:
+    """Sort one file; Return where it went."""
+    raise NotImplementedError
+
+def sweep(settings: Settings, dry_run: bool) -> None:
+    """One pass over every watched folder (top-level only)"""
+    raise NotImplementedError
