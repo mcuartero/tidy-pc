@@ -1,0 +1,34 @@
+[settings]
+watch = ["mock_pc/Downloads", "mock_pc/Desktop"]
+sorted_root = "mock_pc"
+review_root = "mock_pc/Documents/_Review"
+review_days = 14
+settle_seconds = 5
+
+# Throwaways: expire after 30 days
+[[rules]]
+name = "Installers"
+extensions = [".exe", ".msi", ".msix", ".appx"]
+dest = "Downloads/Installers"
+expire_days = 30
+
+# Permanent categories mapped to standard Explorer folders
+[[rules]]
+name = "Pictures"
+extensions = [".png", ".jpg", ".jpeg", ".gif", ".webp", ".heic", ".svg"]
+dest = "Pictures/{year}"
+
+[[rules]]
+name = "Videos"
+extensions = [".mp4", ".mkv", ".mov", ".avi", ".webm"]
+dest = "Videos/{year}"
+
+[[rules]]
+name = "Audio"
+extensions = [".mp3", ".wav", ".flac", ".m4a"]
+dest = "Music"
+
+[[rules]]
+name = "Code"
+extensions = [".py", ".js", ".ts", ".java", ".c", ".cpp", ".rs", ".go", ".ipynb"]
+dest = "Documents/Dev/Code"
