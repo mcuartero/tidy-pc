@@ -39,8 +39,25 @@ def safe_move(src: Path, dest_dir: Path) -> Path:
 
 def process(path: Path, settings: Settings, dry_run: bool) -> Path | None:
     """Sort one file; Return where it went."""
-    raise NotImplementedError
+    if not path.is_file():
+        return None
+    mtime = datetime.fromtimestamp(path.stat().st_mtime)
+    decision = decide(path, mtime, settings)
+
+    if decision is None:
+        return None
+    if dry_run:
+        target = unique_path(decision.dest_dir / path.name)
+        print(f"[dry-run] {path.name} -> {target}")
+        return target
+    final = safe_move(path, decision.dest_dir)
+    print(f"moved {path.name} -> {final}")
+    return final
 
 def sweep(settings: Settings, dry_run: bool) -> None:
     """One pass over every watched folder (top-level only)"""
-    raise NotImplementedError
+    for folder in settings.watch:
+        if not folder.is_dir():
+            continue
+        for path in sorted(folder.iterdir()):
+            process(path, settings, dry_run)
