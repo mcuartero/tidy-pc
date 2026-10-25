@@ -28,6 +28,7 @@ class Settings:
     rules: list[Rule]
 
 def load_settings(path):
+    """Load the TOML config into immutable dataclasses."""
     with open(path, "rb") as f:
         raw = tomllib.load(f)
     s = raw["settings"]
@@ -41,6 +42,7 @@ def load_settings(path):
     )
 
 def show(obj, indent=0):
+    """Pretty-print a dataclass object."""
     pad = "  " * indent
     if is_dataclass(obj):
         print(f"{pad}{type(obj).__name__}")
